@@ -66,8 +66,8 @@ your-project/
 
 ```bash
 # 克隆工具
-git clone https://github.com/your-org/ai-dev-scaffold.git
-cd ai-dev-scaffold
+git clone https://github.com/zhang3ii/AI-DEV-SCAFFOLD.git
+cd AI-DEV-SCAFFOLD
 
 # 进入你的项目目录
 cd /path/to/your-project
@@ -187,8 +187,8 @@ Distilled from 4 high-star GitHub projects:
 
 ```bash
 # Clone the tool
-git clone https://github.com/your-org/ai-dev-scaffold.git
-cd ai-dev-scaffold
+git clone https://github.com/zhang3ii/AI-DEV-SCAFFOLD.git
+cd AI-DEV-SCAFFOLD
 
 # Navigate to your project directory
 cd /path/to/your-project
