@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "."
+          severity: warning
+
+  test:
+    name: Integration Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax check
+        run: bash -n init.sh
+
+      - name: Dry-run test
+        run: |
+          mkdir /tmp/test-scaffold
+          cd /tmp/test-scaffold
+          bash $GITHUB_WORKSPACE/init.sh --project ci-test --dry-run
+
+      - name: Full init test
+        run: |
+          mkdir /tmp/test-full
+          cd /tmp/test-full
+          bash $GITHUB_WORKSPACE/init.sh --project ci-test
+
+      - name: Verify key files exist
+        run: |
+          cd /tmp/test-full
+          test -f .github/copilot-instructions.md || (echo "Missing copilot-instructions.md" && exit 1)
+          test -f .ai/SUMMARY.md                  || (echo "Missing SUMMARY.md" && exit 1)
+          test -f .ai/mistakes.md                 || (echo "Missing mistakes.md" && exit 1)
+          test -f CLAUDE.md                       || (echo "Missing CLAUDE.md" && exit 1)
+          test -f .claude/rules/coding.md         || (echo "Missing coding.md" && exit 1)
+          echo "✅ All key files present"
+
+      - name: Force overwrite test
+        run: |
+          cd /tmp/test-full
+          bash $GITHUB_WORKSPACE/init.sh --project ci-test --force
+          echo "✅ Force overwrite succeeded"

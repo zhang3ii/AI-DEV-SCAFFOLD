@@ -1,0 +1,51 @@
+name: "\U0001f41b Bug Report"
+description: 报告一个 bug 或非预期行为
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢提交 Bug 报告！请尽量填写详细信息以帮助我们复现和修复问题。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      placeholder: 清晰描述发生了什么
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 运行命令 `bash init.sh ...`
+        2. 执行 ...
+        3. 看到错误 ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为
+      placeholder: 你期望发生什么？
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      placeholder: |
+        - OS: macOS 14 / Ubuntu 22.04
+        - Bash 版本: `bash --version`
+        - 脚本版本: v1.0.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 错误输出
+      render: shell
+      placeholder: 粘贴完整错误输出
